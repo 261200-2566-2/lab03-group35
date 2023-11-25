@@ -118,6 +118,7 @@ public class RPG {
         // Perform level up
         SCKagura.levelup();
         SCKagura.printCharacterStats();
-
+        SCKagura.levelup();
+        SCKagura.printCharacterStats();
     }
 }
