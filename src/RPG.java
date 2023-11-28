@@ -1,5 +1,5 @@
 public class RPG {
-    public static   class Characters {
+    public static class Characters {
         String Name;
         double HP;
         double MaxHP;
@@ -47,31 +47,32 @@ public class RPG {
         public void equipSword(Sword sword) {
             equippedSword = sword;
             Sword_RunSpeed_Decreased = Base_RunSpeed * (0.1 + 0.04 * Level);
-            UpdateRunSpped() ;
+            UpdateRunSpped();
         }
 
         public void equipShield(Shield shield) {
             equippedShield = shield;
             Shield_RunSpeed_Decreased = Base_RunSpeed * (0.1 + 0.08 * Level);
-            UpdateRunSpped() ;
+            UpdateRunSpped();
 
         }
 
         public void unequipSword() {
             equippedSword = null;
             Sword_RunSpeed_Decreased = 0;
-            UpdateRunSpped() ;
+            UpdateRunSpped();
 
         }
 
         public void unequipShield() {
             equippedShield = null;
             Shield_RunSpeed_Decreased = 0;
-            UpdateRunSpped() ;
+            UpdateRunSpped();
 
         }
+
         public void UpdateRunSpped() {
-            Base_RunSpeed =     Base_RunSpeed - Shield_RunSpeed_Decreased - Sword_RunSpeed_Decreased ;
+            Base_RunSpeed = Base_RunSpeed - Shield_RunSpeed_Decreased - Sword_RunSpeed_Decreased;
         }
 
         public void printCharacterStats() {
@@ -82,6 +83,17 @@ public class RPG {
             System.out.println("Sword Damage: " + (Sword_Base_Damage + (equippedSword != null ? equippedSword.baseDamage : 0)));
             System.out.println("Shield Defense: " + (Shield_Base_Defense + (equippedShield != null ? equippedShield.baseDefense : 0)));
             System.out.println("Max Run Speed: " + Max_RunSpeed);
+        }
+
+        public double calculateDamage(double damage) {
+            // If there is an equipped shield, reduce damage based on shield defense
+            if (equippedShield != null) {
+                double effectiveDamage = damage - equippedShield.baseDefense;
+                // Ensure the effective damage is non-negative
+                return Math.max(effectiveDamage, 0);
+            } else {
+                return damage; // No shield, no reduction
+            }
         }
     }
 
@@ -98,6 +110,7 @@ public class RPG {
         public void levelUp() {
             baseDamage = baseDamage * (1 + (0.1 * level));
         }
+
         public void printSwordStats(Characters Characters) {
             if (Characters.equippedSword != null) {
                 System.out.println("Sword Stats:");
@@ -121,6 +134,7 @@ public class RPG {
         public void levelUp() {
             baseDefense = baseDefense * (1 + (0.05 * level));
         }
+
         public void printShieldStats(Characters Characters) {
             if (Characters.equippedShield != null) {
                 System.out.println("Shield Stats:");
@@ -135,8 +149,8 @@ public class RPG {
 
     public static void main(String[] args) {
         Characters SCKagura = new Characters("SCKagura");
-        Sword sword = new Sword(1, 10);
-        Shield shield = new Shield(1, 10);
+        Sword sword = new Sword(1, 5);
+        Shield shield = new Shield(1, 5);
 
         // Initial Characters stats
         SCKagura.printCharacterStats();
@@ -153,6 +167,28 @@ public class RPG {
         sword.printSwordStats(SCKagura);
         shield.printShieldStats(SCKagura);
 
+        // Test damage calculation with shield
+        double incomingDamage = 15;
+        double effectiveDamage = SCKagura.calculateDamage(incomingDamage);
+        System.out.println("Effective Damage after Shield: " + effectiveDamage);
+
+        // Print HP before and after taking damage
+        System.out.println("Current HP: " + SCKagura.HP);
+        System.out.println("Taking Damage: " + incomingDamage);
+        SCKagura.HP -= effectiveDamage;
+        System.out.println("Effective HP after Damage: " + SCKagura.HP);
+
+        // Unequip shield and test damage calculation
+        SCKagura.unequipShield();
+        effectiveDamage = SCKagura.calculateDamage(incomingDamage);
+        System.out.println("Effective Damage without Shield: " + effectiveDamage);
+
+        // Print HP before and after taking damage without shield
+        System.out.println("Current HP: " + SCKagura.HP);
+        System.out.println("Taking Damage: " + incomingDamage);
+        SCKagura.HP -= effectiveDamage;
+        System.out.println("Effective HP after Damage without Shield: " + SCKagura.HP);
+
         // Unequip sword and shield and print stats
         SCKagura.unequipSword();
         SCKagura.unequipShield();
@@ -161,4 +197,5 @@ public class RPG {
         shield.printShieldStats(SCKagura);
     }
 }
+
 
