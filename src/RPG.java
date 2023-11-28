@@ -1,21 +1,21 @@
 public class RPG {
-    public static class Characters {
+    public  class Characters {
         private String Name;
-        private  double HP;
+        private double HP;
         private double MaxHP;
         private double Mana;
-        private  double MaxMana;
-        private  double Sword_Base_Damage;
+        private double MaxMana;
+        private double Sword_Base_Damage;
         private double Shield_Base_Defense;
-        private   double Defense;
-        private   double Base_RunSpeed;
-        private   double Max_RunSpeed;
-        private  double Sword_RunSpeed_Decreased;
+        private double Defense;
+        private double Base_RunSpeed;
+        private double Max_RunSpeed;
+        private double Sword_RunSpeed_Decreased;
         private double Shield_RunSpeed_Decreased;
-        private  int Level;
+        private int Level;
         private boolean IsHoldSwordable;
-        private  Sword equippedSword;
-        private   Shield equippedShield;
+        Sword equippedSword;
+        Shield equippedShield;
 
         Characters(String Name) {
             this.Name = Name;
@@ -98,57 +98,12 @@ public class RPG {
     }
 
 
-    public static class Sword {
-       private int level;
-        private double baseDamage;
 
-        public Sword(int level, double baseDamage) {
-            this.level = level;
-            this.baseDamage = baseDamage;
-        }
-
-        public void levelUp() {
-            baseDamage = baseDamage * (1 + (0.1 * level));
-        }
-
-        public void printSwordStats(Characters Characters) {
-            if (Characters.equippedSword != null) {
-                System.out.println("Sword Stats:");
-                System.out.println("Level: " + Characters.equippedSword.level);
-                System.out.println("Base Damage: " + Characters.equippedSword.baseDamage);
-            } else {
-                System.out.println("No sword equipped.");
-            }
-        }
-    }
-
-    public static class Shield {
-      private   int level;
-       private double baseDefense;
-
-        public Shield(int level, double baseDefense) {
-            this.level = level;
-            this.baseDefense = baseDefense;
-        }
-
-        public void levelUp() {
-            baseDefense = baseDefense * (1 + (0.05 * level));
-        }
-
-        public void printShieldStats(Characters Characters) {
-            if (Characters.equippedShield != null) {
-                System.out.println("Shield Stats:");
-                System.out.println("Level: " + Characters.equippedShield.level);
-                System.out.println("Base Defense: " + Characters.equippedShield.baseDefense);
-            } else {
-                System.out.println("No shield equipped.");
-            }
-        }
-    }
 
 
     public static void main(String[] args) {
-        Characters SCKagura = new Characters("SCKagura");
+        RPG rpg = new RPG();
+        RPG.Characters SCKagura = rpg.new Characters("SCKagura");
         Sword sword = new Sword(1, 5);
         Shield shield = new Shield(1, 5);
 
@@ -164,8 +119,8 @@ public class RPG {
         SCKagura.printCharacterStats();
         sword.levelUp();
         shield.levelUp();
-        sword.printSwordStats(SCKagura);
-        shield.printShieldStats(SCKagura);
+        sword.printSwordStats();
+        shield.printShieldStats();
 
         // Test damage calculation with shield
         double incomingDamage = 15;
@@ -193,9 +148,52 @@ public class RPG {
         SCKagura.unequipSword();
         SCKagura.unequipShield();
         SCKagura.printCharacterStats();
-        sword.printSwordStats(SCKagura);
-        shield.printShieldStats(SCKagura);
+        sword.printSwordStats();
+        shield.printShieldStats();
     }
+
+}
+
+class Sword {
+    protected int level;
+    protected double baseDamage;
+
+    public Sword(int level, double baseDamage) {
+        this.level = level;
+        this.baseDamage = baseDamage;
+    }
+
+    public void levelUp() {
+        baseDamage = baseDamage * (1 + (0.1 * level));
+    }
+
+    public void printSwordStats() {
+        System.out.println("Sword Stats  ");
+        System.out.println("Sword Level = " + level);
+        System.out.println("Sword baseDamage = " + baseDamage);
+    }
+}
+
+class Shield {
+    protected int level;
+    protected double baseDefense;
+
+    public Shield(int level, double baseDefense) {
+        this.level = level;
+        this.baseDefense = baseDefense;
+    }
+
+    public void levelUp() {
+        baseDefense = baseDefense * (1 + (0.05 * level));
+    }
+
+    public void printShieldStats() {
+        System.out.println("Shield Stats");
+        System.out.println("Shield Level : " + level);
+        System.out.println("Shield baseDefense : " + baseDefense);
+    }
+
+
 }
 
 
