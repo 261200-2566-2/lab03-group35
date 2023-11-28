@@ -1,21 +1,21 @@
 public class RPG {
     public static class Characters {
-        String Name;
-        double HP;
-        double MaxHP;
-        double Mana;
-        double MaxMana;
-        double Sword_Base_Damage;
-        double Shield_Base_Defense;
-        double Defense;
-        double Base_RunSpeed;
-        double Max_RunSpeed;
-        double Sword_RunSpeed_Decreased;
-        double Shield_RunSpeed_Decreased;
-        int Level;
-        boolean IsHoldSwordable;
-        Sword equippedSword;
-        Shield equippedShield;
+        private String Name;
+        private  double HP;
+        private double MaxHP;
+        private double Mana;
+        private  double MaxMana;
+        private  double Sword_Base_Damage;
+        private double Shield_Base_Defense;
+        private   double Defense;
+        private   double Base_RunSpeed;
+        private   double Max_RunSpeed;
+        private  double Sword_RunSpeed_Decreased;
+        private double Shield_RunSpeed_Decreased;
+        private  int Level;
+        private boolean IsHoldSwordable;
+        private  Sword equippedSword;
+        private   Shield equippedShield;
 
         Characters(String Name) {
             this.Name = Name;
@@ -99,8 +99,8 @@ public class RPG {
 
 
     public static class Sword {
-        int level;
-        double baseDamage;
+       private int level;
+        private double baseDamage;
 
         public Sword(int level, double baseDamage) {
             this.level = level;
@@ -123,8 +123,8 @@ public class RPG {
     }
 
     public static class Shield {
-        int level;
-        double baseDefense;
+      private   int level;
+       private double baseDefense;
 
         public Shield(int level, double baseDefense) {
             this.level = level;
